@@ -17,8 +17,8 @@ export interface onDemandPricing {
 
 export interface ResData {
   sku: string;
-  instanceType: string;
-  databaseEngine: string;
+  instanceType?: string;
+  databaseEngine: DatabaseEngine;
   memory: string;
   vcpu: string;
   deploymentOption: string;
@@ -28,3 +28,16 @@ export interface ResData {
     reserved: ReservedPricing | null;
   };
 }
+
+export interface PricingData {
+  data: ResData[];
+}
+
+export type DatabaseEngine =
+  | 'PostgreSQL'
+  | 'MariaDB'
+  | 'SQL Server'
+  | 'Oracle'
+  | 'MySQL'
+  | 'Aurora PostgreSQL'
+  | string;

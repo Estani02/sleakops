@@ -16,7 +16,7 @@ export interface Product {
 export interface ProductAttributes {
   servicecode: string;
   location: string;
-  instanceType: string;
+  instanceType?: string;
   engineCode: string;
   databaseEngine: string;
   usagetype: string;
