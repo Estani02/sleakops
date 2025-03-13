@@ -23,7 +23,13 @@ export interface ProductAttributes {
   memory: string;
   vcpu: string;
   deploymentOption: string;
-  licenseModel: string;
+  licenseModel?: string;
+  instanceFamily?: string;
+  physicalProcessor?: string;
+  storage?: string;
+  networkPerformance?: string;
+  regionCode?: string;
+  servicename?: string;
 }
 
 export interface Terms {
@@ -87,6 +93,13 @@ export async function GET() {
           vcpu: attributes.vcpu,
           deploymentOption: attributes.deploymentOption,
           location: attributes.location,
+          licenseModel: attributes.licenseModel,
+          instanceFamily: attributes.instanceFamily,
+          physicalProcessor: attributes.physicalProcessor,
+          storage: attributes.storage,
+          networkPerformance: attributes.networkPerformance,
+          regionCode: attributes.regionCode,
+          servicename: attributes.servicename,
           pricing: {
             onDemand: null,
             reserved: null,

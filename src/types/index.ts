@@ -23,6 +23,13 @@ export interface ResData {
   vcpu: string;
   deploymentOption: string;
   location: string;
+  licenseModel?: string;
+  instanceFamily?: string;
+  physicalProcessor?: string;
+  storage?: string;
+  networkPerformance?: string;
+  regionCode?: string;
+  servicename?: string;
   pricing: {
     onDemand: onDemandPricing | null;
     reserved: ReservedPricing | null;

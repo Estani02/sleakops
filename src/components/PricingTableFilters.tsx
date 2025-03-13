@@ -34,8 +34,8 @@ export default function PricingTableFilters({onFilterChange}: PricingTableFilter
   };
 
   return (
-    <Box className="flex flex-col justify-between gap-1.5 md:flex-row md:gap-5" mb={4}>
-      <div className="w-72">
+    <Box className="flex flex-col justify-between gap-1.5 lg:flex-row lg:gap-5" mb={4}>
+      <div className="lg:w-72">
         <label className="text-sm font-semibold" htmlFor="database">
           Select Databases
         </label>
@@ -56,7 +56,7 @@ export default function PricingTableFilters({onFilterChange}: PricingTableFilter
         <label className="text-sm font-semibold" htmlFor="memory">
           Memory (GB)
         </label>
-        <div className="flex w-40 items-center gap-2.5 md:gap-1.5">
+        <div className="flex items-center gap-2.5 md:gap-1.5 lg:w-40">
           <Input
             mt={1}
             placeholder="Min"
@@ -80,7 +80,7 @@ export default function PricingTableFilters({onFilterChange}: PricingTableFilter
         <label className="text-sm font-semibold" htmlFor="vcpu">
           vCPU
         </label>
-        <div className="flex w-40 items-center gap-2.5 md:gap-1.5">
+        <div className="flex items-center gap-2.5 md:gap-1.5 lg:w-40">
           <Input
             mt={1}
             placeholder="Min"
@@ -91,7 +91,6 @@ export default function PricingTableFilters({onFilterChange}: PricingTableFilter
           />
           <span>-</span>
           <Input
-            className="w-8"
             mt={1}
             placeholder="Max"
             value={filters.vcpuMax || ''}
@@ -102,7 +101,7 @@ export default function PricingTableFilters({onFilterChange}: PricingTableFilter
         </div>
       </div>
       <div>
-        <label className="text-sm font-semibold" htmlFor="onDemandPricingUnit">
+        <label className="line-clamp-1 text-sm font-semibold" htmlFor="onDemandPricingUnit">
           On-Demand Pricing Unit
         </label>
         <Select
@@ -119,10 +118,10 @@ export default function PricingTableFilters({onFilterChange}: PricingTableFilter
         </Select>
       </div>
       <div>
-        <label className="text-sm font-semibold" htmlFor="onDemandPricingPrice">
+        <label className="line-clamp-1 text-sm font-semibold" htmlFor="onDemandPricingPrice">
           On-Demand Pricing Price
         </label>
-        <div className="flex w-52 items-center gap-2.5 md:gap-1.5">
+        <div className="flex items-center gap-2.5 md:gap-1.5 lg:w-52">
           <Input
             mt={1}
             placeholder="Min"
@@ -131,7 +130,6 @@ export default function PricingTableFilters({onFilterChange}: PricingTableFilter
           />
           <span>-</span>
           <Input
-            className="w-8"
             mt={1}
             placeholder="Max"
             value={filters.onDemandPricingPriceMax || ''}
@@ -141,7 +139,7 @@ export default function PricingTableFilters({onFilterChange}: PricingTableFilter
       </div>
       <div>
         <p className="text-transparent">Clear</p>
-        <Button className="w-28" mt={1} onClick={handleClearFilters}>
+        <Button className="w-full lg:mt-1 lg:w-28" onClick={handleClearFilters}>
           Clear Filters
         </Button>
       </div>

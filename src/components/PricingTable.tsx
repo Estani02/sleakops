@@ -21,6 +21,7 @@ import {ChevronDownIcon, ChevronLeftIcon, ChevronRightIcon} from '@chakra-ui/ico
 import {motion} from 'framer-motion';
 
 import PricingTableFilters from './PricingTableFilters';
+import ProductDetailsCard from './ProductDetailsCard';
 
 import {Filters, PricingData} from '@/types';
 import {databaseEngineOptions, onDemandPricingUnits} from '@/constants';
@@ -162,31 +163,7 @@ export default function PricingTable() {
                         style={{overflow: 'hidden'}}
                         transition={{duration: 0.3, ease: 'easeInOut'}}
                       >
-                        <Box p={6}>
-                          <Heading as="h3" size="sm">
-                            Pricing Details
-                          </Heading>
-                          {item.pricing.reserved ? (
-                            Object.entries(item.pricing.reserved).map(([years, plans]) => (
-                              <Box key={years} borderRadius="md" className="" mt={2} p={3}>
-                                <div className="text-primary w-fit rounded-md bg-white p-1.5">
-                                  <strong>Reserva {years}</strong>
-                                </div>
-                                {Object.entries(plans).map(([plan, details]) => (
-                                  <Box key={plan} className="text-sm" mt={2}>
-                                    <strong className="text-base capitalize">
-                                      {plan.replace('_', ' ')}:
-                                    </strong>{' '}
-                                    ${details.totalCost} (Upfront: ${details.upfrontFee}, Rate: $
-                                    {details.hourlyRate}/hr)
-                                  </Box>
-                                ))}
-                              </Box>
-                            ))
-                          ) : (
-                            <Box>There are no reserved options</Box>
-                          )}
-                        </Box>
+                        <ProductDetailsCard item={item} />
                       </motion.div>
                     </Td>
                   </Tr>
