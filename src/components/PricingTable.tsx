@@ -23,7 +23,7 @@ import {motion} from 'framer-motion';
 import PricingTableFilters from './PricingTableFilters';
 
 import {Filters, PricingData} from '@/types';
-import {databaseEngineOptions} from '@/constants';
+import {databaseEngineOptions, onDemandPricingUnits} from '@/constants';
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
@@ -59,15 +59,32 @@ export default function PricingTable() {
 
   const filteredData = dataPricing?.data?.filter((item) => {
     const memory = parseFloat(item.memory);
+    const vcpu = parseInt(item.vcpu);
+    const onDemandPricingPrice = item.pricing.onDemand?.pricePerUnit ?? 0;
 
     if (filters.database === 'Others') {
       return !databaseEngineOptions.includes(item.databaseEngine);
     }
 
+    if (filters.onDemandPricingUnit === 'Others') {
+      return !onDemandPricingUnits.includes(item.pricing.onDemand?.unit ?? '');
+    }
+
     return (
       (filters.database ? item.databaseEngine === filters.database : true) &&
-      (filters.memoryMin !== undefined ? memory >= filters.memoryMin : true) &&
-      (filters.memoryMax !== undefined ? memory <= filters.memoryMax : true)
+      (filters.memoryMin ? memory >= filters.memoryMin : true) &&
+      (filters.memoryMax ? memory <= filters.memoryMax : true) &&
+      (filters.vcpuMin ? vcpu >= filters.vcpuMin : true) &&
+      (filters.vcpuMax ? vcpu <= filters.vcpuMax : true) &&
+      (filters.onDemandPricingUnit
+        ? item.pricing.onDemand?.unit === filters.onDemandPricingUnit
+        : true) &&
+      (filters.onDemandPricingPriceMin
+        ? onDemandPricingPrice >= filters.onDemandPricingPriceMin
+        : true) &&
+      (filters.onDemandPricingPriceMax
+        ? onDemandPricingPrice <= filters.onDemandPricingPriceMax
+        : true)
     );
   });
 

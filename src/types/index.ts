@@ -50,6 +50,11 @@ export interface Filters {
   database?: DatabaseEngine;
   memoryMin?: number;
   memoryMax?: number;
+  vcpuMin?: number;
+  vcpuMax?: number;
+  onDemandPricingUnit?: string;
+  onDemandPricingPriceMin?: number;
+  onDemandPricingPriceMax?: number;
 }
 
 export type FilterKeys = keyof Filters;
