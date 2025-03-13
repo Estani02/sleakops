@@ -63,6 +63,18 @@ export default function PricingTable() {
     const vcpu = parseInt(item.vcpu);
     const onDemandPricingPrice = item.pricing.onDemand?.pricePerUnit ?? 0;
 
+    const hasAllRequiredFields =
+      item.instanceType &&
+      item.databaseEngine &&
+      item.memory &&
+      item.vcpu &&
+      item.location &&
+      item.pricing.onDemand?.pricePerUnit !== undefined;
+
+    if (filters.allRequierdFields && !hasAllRequiredFields) {
+      return false;
+    }
+
     if (filters.database === 'Others') {
       return !databaseEngineOptions.includes(item.databaseEngine);
     }

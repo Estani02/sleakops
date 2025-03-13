@@ -62,6 +62,7 @@ export interface Filters {
   onDemandPricingUnit?: string;
   onDemandPricingPriceMin?: number;
   onDemandPricingPriceMax?: number;
+  allRequierdFields?: boolean;
 }
 
 export type FilterKeys = keyof Filters;
