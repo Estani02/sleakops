@@ -39,5 +39,17 @@ export type DatabaseEngine =
   | 'SQL Server'
   | 'Oracle'
   | 'MySQL'
+  | 'Aurora MySQL'
   | 'Aurora PostgreSQL'
+  | 'Db2'
+  | 'SQL Server (on-premise for Outpost)'
+  | 'PostgreSQL (on-premise for Outpost)'
   | string;
+
+export interface Filters {
+  database?: DatabaseEngine;
+  memoryMin?: number;
+  memoryMax?: number;
+}
+
+export type FilterKeys = keyof Filters;

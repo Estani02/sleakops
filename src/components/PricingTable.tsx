@@ -1,6 +1,6 @@
 'use client';
 
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import useSWR from 'swr';
 import {
   Table,
@@ -20,15 +20,23 @@ import {
 import {ChevronDownIcon, ChevronLeftIcon, ChevronRightIcon} from '@chakra-ui/icons';
 import {motion} from 'framer-motion';
 
-import {PricingData} from '@/types';
+import PricingTableFilters from './PricingTableFilters';
+
+import {Filters, PricingData} from '@/types';
+import {databaseEngineOptions} from '@/constants';
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 export default function PricingTable() {
   const {data: dataPricing, error, isLoading} = useSWR<PricingData>('/api/pricing', fetcher);
+  const [filters, setFilters] = useState<Filters>({});
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(5);
   const [openSkus, setOpenSkus] = useState<string[]>([]);
+
+  useEffect(() => {
+    setPage(1);
+  }, [filters]);
 
   if (error)
     return (
@@ -49,9 +57,23 @@ export default function PricingTable() {
       </Stack>
     );
 
-  const totalItems = dataPricing?.data?.length || 0;
+  const filteredData = dataPricing?.data?.filter((item) => {
+    const memory = parseFloat(item.memory);
+
+    if (filters.database === 'Others') {
+      return !databaseEngineOptions.includes(item.databaseEngine);
+    }
+
+    return (
+      (filters.database ? item.databaseEngine === filters.database : true) &&
+      (filters.memoryMin !== undefined ? memory >= filters.memoryMin : true) &&
+      (filters.memoryMax !== undefined ? memory <= filters.memoryMax : true)
+    );
+  });
+
+  const totalItems = filteredData?.length || 0;
   const totalPages = Math.ceil(totalItems / pageSize);
-  const paginatedData = dataPricing?.data?.slice((page - 1) * pageSize, page * pageSize);
+  const paginatedData = filteredData?.slice((page - 1) * pageSize, page * pageSize);
 
   const toggleSku = (sku: string) => {
     setOpenSkus((prev) =>
@@ -76,6 +98,7 @@ export default function PricingTable() {
 
   return (
     <Box mt={5} mx="auto">
+      <PricingTableFilters onFilterChange={setFilters} />
       <TableContainer border="1px solid #E2E8F0" borderRadius="md" overflowX="auto">
         <Table>
           <Thead>

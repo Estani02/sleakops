@@ -5,3 +5,8 @@
   --color-primary-light: #1A202C;
   --color-secondary: #90CDF4;
 }
+
+option {
+  background-color: var(--color-primary) !important;
+  color: #FFFFFF;
+}
